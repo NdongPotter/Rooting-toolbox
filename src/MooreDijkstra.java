@@ -7,7 +7,7 @@ import java.util.ListIterator;
  *Par défaut l'algorithme retourne le plus court chemin vers le sommet le plus éloigné du sommet-source.
  */
 
-public class Algo1_Moore_Dijkstra {
+public class MooreDijkstra extends Algo {
 
 	//Attributs
 	/*graphe sur lequel on va appliquer l'algorithme*/
@@ -24,7 +24,7 @@ public class Algo1_Moore_Dijkstra {
 	private ArrayList<Sommet> t;
 
 	//Constructeur
-	public Algo1_Moore_Dijkstra(Graphe g , Sommet s){
+	public MooreDijkstra(Graphe g , Sommet s){
 		this.graphe=g;
 		this.s=s;	
 		this.t = new ArrayList<Sommet>();
@@ -35,7 +35,7 @@ public class Algo1_Moore_Dijkstra {
 				+"\n"+"Source : "+s.getNom()
 				+"\n"+"Sommets du graphe : "+ g.afficheSommetsGraphe());
 		
-		/*L'étape d'initialisation de l'algo est réalisée lors de la construction de l'objet Algo1_Moore_Dijkstra*/
+		/*L'étape d'initialisation de l'algo est réalisée lors de la construction de l'objet MooreDijkstra*/
 		
 		System.out.print("*INITIALISATION"+"\n");
 
@@ -147,9 +147,9 @@ public class Algo1_Moore_Dijkstra {
 	
 	//Implémentation de l'algorithme
 	
-	public void algo(Sommet sortie) {
+	void algo(Sommet sortie) {
 		
-		/*on implémente ici  les itérations de l'algorithme qui devra s'appliquer à un objet Algo1_Moore_Dijkstra préalaablement construit en prenant
+		/*on implémente ici  les itérations de l'algorithme qui devra s'appliquer à un objet MooreDijkstra préalaablement construit en prenant
 		*en argument le graphe d'intérêt g et le sommet-source.
 		*L'initialisation de l'algorithme a déjà été réalisée dans le constructeur.
 		*A terme il faudrait que l'algo retourne les listes pred et pi et que l'affichage du résultat soit externalisé dans d'autres méthodes

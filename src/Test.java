@@ -43,7 +43,7 @@ public class Test {
 		//bash : "dot -Tjpg -o TEST_1.jpg TEST_1.dot "
 		
 		/*Test 1 : On applique l'algorithme de Moore-Dijkstra au graphe*/
-		Algo1_Moore_Dijkstra a1 = new Algo1_Moore_Dijkstra(g1,s1);
+		MooreDijkstra a1 = new MooreDijkstra(g1,s1);
 		a1.algo(s5);
 
 		System.out.println("_____________________________________ FIN TEST 1 _____________________________________");
@@ -100,7 +100,7 @@ public class Test {
 		//bash : "dot -Tjpg -o TEST_2.jpg TEST_2.dot "
 		
 		/*Test 2 : On applique l'algorithme de Moore-Dijkstra au graphe*/
-		Algo1_Moore_Dijkstra a2 = new Algo1_Moore_Dijkstra(g2,sA);
+		MooreDijkstra a2 = new MooreDijkstra(g2,sA);
 		a2.algo(sJ);
 
 		System.out.println("_____________________________________ FIN TEST 2 _____________________________________");
@@ -177,7 +177,7 @@ System.out.println("Exemple tiré de : http://icosaweb.ac-reunion.fr/Algorithmes
 		//bash : "dot -Tjpg -o TEST_3.jpg TEST_3.dot "
 		
 		/*Test 2 : On applique l'algorithme de Moore-Dijkstra au graphe*/
-		Algo1_Moore_Dijkstra a3 = new Algo1_Moore_Dijkstra(g3,si);
+		MooreDijkstra a3 = new MooreDijkstra(g3,si);
 		a3.algo(sf);
 		
 		System.out.println("_____________________________________ FIN TEST 3 _____________________________________");
