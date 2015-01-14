@@ -1,0 +1,28 @@
+digraph G {
+	si -> sa [label = "1[1]"];
+	si -> sc [label = "6[6]"];
+	sa -> sb [label = "1[1]"];
+	sa -> sc [label = "5[5]"];
+	sa -> sd [label = "4[4]"];
+	sb -> sd [label = "2[2]"];
+	sc -> sh [label = "3[3]"];
+	sd -> sc [label = "4[4]"];
+	sd -> se [label = "2[2]"];
+	se -> sb [label = "1[1]"];
+	se -> sl [label = "4[4]"];
+	sg -> sc [label = "3[3]"];
+	sg -> sm [label = "1[1]"];
+	sh -> sd [label = "3[3]"];
+	sh -> sg [label = "2[2]"];
+	sh -> sm [label = "5[5]"];
+	sh -> sn [label = "8[8]"];
+	sk -> sd [label = "4[4]"];
+	sk -> sn [label = "2[2]"];
+	sl -> sk [label = "6[6]"];
+	sl -> sp [label = "7[7]"];
+	sm -> sf [label = "12[12]"];
+	sn -> sf [label = "9[9]"];
+	sp -> sn [label = "1[1]"];
+	sp -> sf [label = "6[6]"];
+	sf;
+}

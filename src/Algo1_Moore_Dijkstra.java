@@ -10,7 +10,6 @@ import java.util.ListIterator;
 public class Algo1_Moore_Dijkstra {
 
 	//Attributs
-	
 	/*graphe sur lequel on va appliquer l'algorithme*/
 	private Graphe graphe;
 	/*sommet-source de l'algorithme*/
@@ -25,7 +24,6 @@ public class Algo1_Moore_Dijkstra {
 	private ArrayList<Sommet> t;
 
 	//Constructeur
-	
 	public Algo1_Moore_Dijkstra(Graphe g , Sommet s){
 		this.graphe=g;
 		this.s=s;	
@@ -33,11 +31,13 @@ public class Algo1_Moore_Dijkstra {
 		this.pred = new ArrayList<Sommet>();
 		this.pi = new ArrayList<Integer>();
 
-		System.out.println("*L'objet Algo1_Moore_Dijkstra a été construit"+"\n"+"Le sommet-source est : "+s.getNom()+"\n"+"Les sommets du graphe d'intérêt sont : "+ g.afficheSommetsGraphe());
+		System.out.println("*CONSTRUCTION"
+				+"\n"+"Source : "+s.getNom()
+				+"\n"+"Sommets du graphe : "+ g.afficheSommetsGraphe());
 		
 		/*L'étape d'initialisation de l'algo est réalisée lors de la construction de l'objet Algo1_Moore_Dijkstra*/
 		
-		System.out.print("*Etape d'initialisation de l'algorithme : "+"\n");
+		System.out.print("*INITIALISATION"+"\n");
 
 		/*initialisation de la liste des sommets à traiter, il s'agit de tous les sommets sauf le sommet-source*/
 		ListIterator<Sommet> iter1 = this.graphe.getSommets().listIterator();
@@ -47,52 +47,39 @@ public class Algo1_Moore_Dijkstra {
 				t.add(varS);
 			}
 		}
-		System.out.print("La liste T des sommets à traiter est : "+this.afficherT());
+		System.out.print("t = "+this.afficherT());
 		
-		/*initialisation de la liste prédecesseurs : 
-		 * On indique un sommet E comme prédecesseur de s1.
-		 * Pour tous les autres prédecesseurs, on indique un sommet temporaire x0.
-		 * pour chaque successeur direct du sommet-source s, on renseigne s comme meilleur prédecesseur. 
+		/*initialisation des listes pred et pi : 
+		 * Pour tous prédecesseurs, on indique un sommet temporaire x0 et un cout temporaire +infini
+		 * Pour le sommet source, on indique E comme meilleur prédecesseur et 0 comme cout
+		 * pour chaque successeur direct du sommet-source s, on renseigne s comme meilleur prédecesseur et pour le coût on prend la distance au sommet-source.
 		 */
 		Sommet E = new Sommet("E");
 		Sommet x0 = new Sommet("x0");
-		pred.add(E);
-		for (int i=1 ; i<this.graphe.getNbSommets(); i++){
+
+		for (int i=0 ; i<this.graphe.getNbSommets(); i++){
 			this.pred.add(x0);
-		}
-		
-		ListIterator<Sommet> iter2 = this.s.getSuccesseurs().listIterator();
-		while(iter2.hasNext()){
-			int index = g.indexOf(iter2.next());
-			this.pred.set(index,s);
-		}
-		System.out.print("La liste des prédecesseurs A a été initialisée (même ordre que les sommets du graphe) : "+this.afficherPred());
-		
-		/*initialisation de la liste des coûts (=capacités) : 
-		 * On indique 0 comme coût associé au sommet-source s
-		 * On indique +infini pour les autres
-		 * Pour chaque successeur direct du sommet-source s, on indique comme coût la distance au sommet 
-		 */
-	
-		pi.add(0);
-		for (int i=1 ; i<this.graphe.getNbSommets(); i++){
 			this.pi.add(Integer.MAX_VALUE);
 		}
 		
-		ListIterator<Sommet> iter3 = this.s.getSuccesseurs().listIterator();
-		while(iter3.hasNext()){
-			int i1 = iter3.nextIndex();
-			int i2 = g.indexOf(iter3.next());
+		this.pred.set(g.indexOf(s),E);
+		this.pi.set(g.indexOf(s),0);
+		
+		ListIterator<Sommet> iter2 = this.s.getSuccesseurs().listIterator();
+		while(iter2.hasNext()){
+			int i1 = iter2.nextIndex();
+			int i2 = g.indexOf(iter2.next());
+			this.pred.set(i2,s);
 			this.pi.set(i2,this.s.getCapacites().get(i1));
 		}
-		System.out.print("La liste des couts Pi a été initialisée : "+this.afficherPi());
-		System.out.println("Si le meileur prédecesseur est x0, cela signifie que le sommet en question n'a pas encore de meilleur prédecesseur. Le cout infini vaut ici 2147483647."+"\n");
-
+		
+		System.out.print("pred = "+this.afficherPred()
+				+"pi = "+this.afficherPi()
+				+"Prédecesseur par défaut : x0. Cout infini = 2147483647."
+				+"\n");
 	}
 	
 	//Méthodes d'affichage
-	
-	/*Permet d'afficher la liste des sommets à traiter ou des prédecesseurs*/
 	public String afficherT(){
 		String liste = new String();
 		ListIterator<Sommet> iter = this.t.listIterator();
@@ -103,7 +90,6 @@ public class Algo1_Moore_Dijkstra {
 		return liste+"\n";
 	}
 	
-	/*Permet d'afficher la liste des meilleurs prédecesseurs*/
 	public String afficherPred(){
 		String liste = new String();
 		ListIterator<Sommet> iter = this.pred.listIterator();
@@ -114,77 +100,24 @@ public class Algo1_Moore_Dijkstra {
 		return liste+"\n";
 	}
 	
-	/*Permet d'afficher la liste des couts depuis l'origine associés aux meilleurs prédecesseurs*/
 	public String afficherPi(){
 		return this.pi.toString()+"\n";
 	}
 	
-	//Implémentation de l'algorithme
+	//METHODE D'AFFICHAGE d'UN RESULTAT selon sommet sortie
 	
-	public ArrayList<Sommet> algo() {
+	public void affichageResultat(Sommet sortie){
 		
-		/*on implémente ici  les itérations de l'algorithme qui devra s'appliquer à un objet Algo1_Moore_Dijkstra préalaablement construit en prenant
-		*en argument le graphe d'intérêt g et le sommet-source.
-		*L'initialisation de l'algorithme a déjà été réalisée dans le constructeur.
-		*/
-		
-		/*L'algorithme tourne tant qu'il reste des sommets à traiter*/
-		int iteration = 0 ; //permet de suivre le nombre d'itérations de l'algorithme
+		int index = this.graphe.indexOf(sortie);
 
-		while (this.t.size()>1){
-			
-			iteration++;
-		/*Affichage des informations utiles*/
-			System.out.print("*Itération n° "+iteration+"\n");
-			System.out.print("- Sommets à traiter : "+this.afficherT());
-			System.out.print("- Meilleurs prédecesseurs : "+this.afficherPred());
-			System.out.print("- Sommets du graphe : "+this.graphe.afficheSommetsGraphe());
-			System.out.print("- Liste des couts : "+this.afficherPi());
-			
-		/*On cherche dans la liste des sommets à traiter celui qui minimise Pi*/
-			Sommet rechercheSommet = null; //initialisation de la variable qui contiendra le sommet de T qui minimise Pi
-			int rechercheIndex = 0; //initialisation de la variable qui contiendra l'index du sommet dans le graphe
-			int rechercheCout = Integer.MAX_VALUE ; //initialisation de la variable qui contiendra le cout depuis le sommet-source dans Pi
-			ListIterator<Sommet> iter = this.t.listIterator();//itérateur sur la liste T des sommets à traiter
-
-			while (iter.hasNext()){ //on parcourt tous les sommets de T
-				Sommet sommetItere = iter.next();//sommet en cours d'étude
-				int i = this.graphe.getSommets().indexOf(sommetItere);//index du sommet étudié dans le graphe
-				if(this.pi.get(i)<rechercheCout){
-					rechercheSommet = sommetItere;//Si le cout depuis le sommet-source dans Pi est minimal, on stocke le sommet T qui minimise Pi
-					rechercheIndex = i ;//on sotcke également son index
-					rechercheCout = this.pi.get(i);//et son cout
-				}
-			}
-			System.out.print("Le sommet qui minimise Pi est : "+rechercheSommet.getNom()+". Son index dans T est : "+rechercheIndex+". La distance depuis le sommet-source est : "+rechercheCout+"\n"+"\n");
-
-			t.remove(rechercheSommet);//on supprime de la liste T des sommets à traiter le sommet qui minimise le cout depuis le sommet-source dans Pi
-			
-			for (int i=0 ; i < rechercheSommet.getSuccesseurs().size() ; i++){
-				Sommet varS = rechercheSommet.getSucc(i);//on parcourt la liste des sucesseurs du sommet recherché
-				int nouvelleDistance = rechercheCout+rechercheSommet.getCapacites(i);//on calcul pour chaque successeur sa distance au sommet-source en passant par rechercheSommet
-				
-				if (nouvelleDistance<this.pi.get(this.graphe.indexOf(varS))){//si cette nouvelle distance est plus faible, on met à jour la liste des meilleurs prédecesseurs et la liste des couts
-					System.out.println("Pour arriver à "+varS.getNom()+" qui est un successeur de "+rechercheSommet.getNom()+", on passe actuellement par le sommet "+this.pred.get(this.graphe.indexOf(varS)).getNom()+" qui est le meilleur prédécesseur");
-					System.out.println("Actuellement le cout depuis l'origine dans Pi de "+this.pi.get(this.graphe.indexOf(varS)));
-					this.pred.set(this.graphe.indexOf(varS), rechercheSommet);
-					this.pi.set(this.graphe.indexOf(varS),nouvelleDistance);
-					System.out.println("Il est plus rapide de passer par "+rechercheSommet.getNom()+". Le cout depuis l'origine dans Pi devient "+nouvelleDistance+"\n");
-				}		
-			}
-		}
-		
-		if(this.t.size()==1){//on traite le cas du dernier sommet
-			System.out.println("* Tous les sommets ont été traités sauf "+this.t.get(0).getNom()+" qui est le sommet le plus éloigné du sommet-source "+this.s.getNom()+"."+"\n"+"Le cout du trajet depuis le sommet-source est "+this.pi.get(this.graphe.indexOf(this.t.get(0)))+"\n");
-		};
-
-		/*On retourne et affiche le plus court-chemin*/
-		
+		if (this.pi.get(index)!=Integer.MAX_VALUE){
+		/*On récupère le coût associé à ce sommet de sortie*/
+		int cout = this.pi.get(index);
+		/*On remonte la liste pred pour déterminer le plus court-chemin du sommet-source au sommet de sortie*/
 		ArrayList<Sommet> resultat = new ArrayList<Sommet>() ;
-
-		Sommet varS = this.t.get(0);//on recupère dans une variable varS le dernier sommet non-traité
+		Sommet varS = sortie ;
 		while (! varS.equals(this.s)){
-			/*la liste des sommets constituants le plus court chemin est complété en remontant un par un les meilleurs prédécesseurs. 
+			/*la liste des sommets constituants le plus court chemin est complété en remontant un par un les meilleurs prédécesseurs depuis sMax
 			 * La boucle s'arrête lorsqu'on retrouve le sommet-source.
 			 */
 			resultat.add(0, varS);
@@ -196,18 +129,138 @@ public class Algo1_Moore_Dijkstra {
 		
 		/*On affiche le résultat*/
 		String liste = new String();
-		ListIterator<Sommet> iter = resultat.listIterator();
-		while(iter.hasNext()){
-			String var = iter.next().getNom();
-			if(iter.hasNext()){
+		ListIterator<Sommet> iter2 = resultat.listIterator();
+		while(iter2.hasNext()){
+			String var = iter2.next().getNom();
+			if(iter2.hasNext()){
 				var+=" -> ";
 			}
 			liste+=var;
 		}
-		System.out.println("*Le plus court-chemin déterminé à l'aide de l'algorithme de Moore-Dijkstra est : "+liste);
-	
 		
-		
-		return resultat;
+	System.out.println("Sortie passée en paramètre : " + sortie.getNom()
+				+". Plus court-chemin (Moore-Dijkstra) est : "+liste
+				+". Coût associé : "+cout);
+			}
+		else {System.out.print("Le sommet de sortie "+sortie.getNom()+" n'est pas atteignable depuis la source "+s.getNom());}
 	}
+	
+	//Implémentation de l'algorithme
+	
+	public void algo(Sommet sortie) {
+		
+		/*on implémente ici  les itérations de l'algorithme qui devra s'appliquer à un objet Algo1_Moore_Dijkstra préalaablement construit en prenant
+		*en argument le graphe d'intérêt g et le sommet-source.
+		*L'initialisation de l'algorithme a déjà été réalisée dans le constructeur.
+		*A terme il faudrait que l'algo retourne les listes pred et pi et que l'affichage du résultat soit externalisé dans d'autres méthodes
+		*/
+		
+		/*L'algorithme tourne tant qu'il reste des sommets à traiter*/
+		int iteration = 0 ; //permet de suivre le nombre d'itérations de l'algorithme
+		
+		System.out.print("\n"+"*ITERATION");
+
+		while (this.t.size()>1){
+			iteration++;
+			
+		/*Affichage des informations utiles*/
+			System.out.print("\n"+"> Itération "+iteration
+					+"\n"+"g = "+this.graphe.afficheSommetsGraphe()
+					+"t = "+this.afficherT()
+					+"pred = "+this.afficherPred()
+					+"Liste des couts = "+this.afficherPi());
+			
+		/*On cherche dans la liste des sommets à traiter celui qui minimise Pi*/
+			Sommet rechercheSommet = null; //initialisation de la variable qui contiendra le sommet de T qui minimise Pi
+			int rechercheIndex = 0; //initialisation de la variable qui contiendra l'index du sommet dans le graphe
+			int rechercheCout = Integer.MAX_VALUE ; //initialisation de la variable qui contiendra le cout depuis le sommet-source dans Pi
+			ListIterator<Sommet> iter = this.t.listIterator();//itérateur sur la liste T des sommets à traiter
+
+			while (iter.hasNext()){ //on parcourt tous les sommets de T
+				Sommet sommetItere = iter.next();//sommet en cours d'étude
+				int i = this.graphe.getSommets().indexOf(sommetItere);//index du sommet étudié dans le graphe
+				if(this.pi.get(i)<=rechercheCout){
+					rechercheSommet = sommetItere;//Si le cout depuis le sommet-source dans Pi est minimal, on stocke le sommet T qui minimise Pi
+					rechercheIndex = i ;//on stocke également son index
+					rechercheCout = this.pi.get(i);//et son cout
+				}
+			}
+			System.out.print("Sommet qui minimise Pi : "+rechercheSommet.getNom()
+					+". Index dans T : "+rechercheIndex
+					+". Distance depuis la source : "+rechercheCout
+					+"\n"+"Successeurs :");
+
+			t.remove(rechercheSommet);//on supprime de la liste T des sommets à traiter le sommet qui minimise le cout depuis le sommet-source dans Pi
+			
+			for (int i=0 ; i < rechercheSommet.getSuccesseurs().size() ; i++){
+				//on parcourt la liste des sucesseurs du sommet en train d'être traité afin  de vérifier qu'on a pas trouvé un nouveau plus-court chemin.
+				Sommet varS = rechercheSommet.getSucc(i);
+				System.out.print("- "+varS.getNom()+" est un successeur de "+rechercheSommet.getNom());
+				ListIterator<Sommet> iter2 = this.t.listIterator();//on vérifie uniquement pour les sommets qui sont encore à traiter
+				while(iter2.hasNext()){
+					Sommet varT = iter2.next();
+					if(varS.equals(varT)){
+						System.out.println(". Il est dans t, on calcul le nouveau coût.");
+						int nouvelleDistance = rechercheCout+rechercheSommet.getCapacites(i);//on calcul pour chaque successeur sa distance au sommet-source en passant par rechercheSommet
+						if (nouvelleDistance<this.pi.get(this.graphe.indexOf(varS))){//si cette nouvelle distance est plus faible, on met à jour la liste des meilleurs prédecesseurs et la liste des couts
+							System.out.print("Meilleur prédecesseur actuel de "+varS.getNom()
+									+" : "+this.pred.get(this.graphe.indexOf(varS)).getNom()
+									+". Coût associé : "+this.pi.get(this.graphe.indexOf(varS)));
+							this.pred.set(this.graphe.indexOf(varS), rechercheSommet);
+							this.pi.set(this.graphe.indexOf(varS),nouvelleDistance);
+							System.out.print(". En passant par "+rechercheSommet.getNom()
+									+" le cout devient "+nouvelleDistance+"\n");
+						}		
+						
+					}
+				}
+				
+				
+			}
+		}
+		
+		System.out.print("\n"+"*FIN ALGO"+"\n"
+				+this.t.get(0).getNom()+" est seul dans t. C'est soit le plus éloigné du sommet-source, soit un sommet innateignable."
+				+"\n"+"\n"+"*BILAN"
+				+"\n"+"g = "+this.graphe.afficheSommetsGraphe()
+				+"pred = "+this.afficherPred()
+				+"pi = "+this.afficherPi());
+
+		System.out.print("Sommets innateignables depuis "+this.s.getNom()+" : ");
+		ListIterator<Integer> iter0 = this.pi.listIterator();
+		while (iter0.hasNext()){ //on parcourt la liste des couts afin d'identifier les sommets innateignables
+			int index = iter0.nextIndex();
+			int varC = iter0.next();
+			Sommet varS = this.graphe.getSommet(index);
+			if (varC == Integer.MAX_VALUE){
+				System.out.print(varS.getNom()+";");
+			}
+		}
+			
+		//RESULTATS
+		
+		System.out.println("\n"+"\n"+"*RESULTATS");
+
+		Sommet sMax = null ; //variable qui contient le sommet le plus éloigné depuis la source - on affiche le chemin associé par défaut
+		int cMax = 0 ; //cout associé à sMax
+		ListIterator<Integer> iter1 = this.pi.listIterator();
+		while (iter1.hasNext()){ //on parcourt la liste des couts afin d'identifier sMax et cMax
+			int index = iter1.nextIndex();
+			int varC = iter1.next();
+			Sommet varS = this.graphe.getSommet(index);
+			if (varC > cMax && varC < Integer.MAX_VALUE){
+				cMax = varC ;
+				sMax = varS ;
+			}
+		}
+	
+		System.out.println("Plus-court chemin jusqu'au sommet le plus éloigné de la source : ");
+		this.affichageResultat(sMax);	
+	
+		System.out.println("Plus-court chemin jusqu'au sommet passé en paramètre de l'algo : ");
+		this.affichageResultat(sortie);	
+
+	
+	}	
+		
 }
