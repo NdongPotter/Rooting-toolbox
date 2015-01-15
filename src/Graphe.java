@@ -96,7 +96,7 @@ public class Graphe {
 			String var = iter.next().getNom()+";";
 			liste+=var;
 		}
-		return liste+"\n";
+		return liste;
 	}
 	
 	public ArrayList<Sommet> getPredecesseurs(Sommet s){
