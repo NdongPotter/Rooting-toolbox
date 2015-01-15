@@ -49,7 +49,7 @@ public class MooreDijkstra extends Algo {
 								t.remove(miniPi);
 							/*On calcul le coûts pour accéder à ses successeurs, mise-à-jour de pred et pi si le chemin est plus court */
 								majPred(miniPi,miniPiCout);
-				}
+						}
 			//FIN
 				System.out.print("\n"+"*FIN"+"\n");
 				System.out.println(this.t.get(0).getNom()+" est seul dans t. C'est soit le plus éloigné du sommet-source, soit un sommet innateignable.");

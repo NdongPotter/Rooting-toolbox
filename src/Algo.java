@@ -92,7 +92,7 @@ public abstract class Algo {
 		System.out.println("Successeur(s) : ");
 		for (int i=0 ; i < miniPi.getSuccesseurs().size() ; i++){
 			Sommet varS = miniPi.getSucc(i);
-			System.out.print("- "+varS.getNom()+" est un successeur de "+miniPi.getNom());
+			System.out.print("- "+varS.getNom()+" est un successeur de "+miniPi.getNom()+" la capacité associée à l'arc est "+ miniPi.getCapacites(i));
 			ListIterator<Sommet> iter2 = this.t.listIterator();//on vérifie uniquement pour les sommets qui sont encore à traiter
 			while(iter2.hasNext()){
 				Sommet varT = iter2.next();
@@ -187,7 +187,7 @@ public abstract class Algo {
 							}
 							liste+=var;
 						}
-						System.out.println("Plus court-chemin (Moore-Dijkstra) de "+s.getNom()
+						System.out.println("Plus court-chemin de "+s.getNom()
 							+" à "+ sortie.getNom()
 							+" : "+liste
 							+". Coût : "+cout);

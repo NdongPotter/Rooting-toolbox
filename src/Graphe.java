@@ -126,7 +126,7 @@ public class Graphe {
 			String var = iter.next().getNom()+";";
 			liste+=var;
 		}
-		return liste+"\n";
+		return liste;
 	}
 
 	public int indexOf(Sommet s) {

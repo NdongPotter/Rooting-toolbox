@@ -125,11 +125,43 @@ public class Test {
 			g3.addSommet(sn);
 			g3.addSommet(sp);
 			g3.addSommet(sf);
-
+	/*Graphe 4*/
+			/*Instanciation des sommets*/
+			Sommet s10 = new Sommet("s10");
+			Sommet s20 = new Sommet("s20");		
+			Sommet s30 = new Sommet("s30");
+			Sommet s40 = new Sommet("s40");
+			Sommet s50 = new Sommet("s50");
+			Sommet s60 = new Sommet("s60");
+			Sommet s70 = new Sommet("s70");
+			/*Définition des successeurs et capacités*/
+			s10.addSuccesseur(s20, 3, 3);
+			s10.addSuccesseur(s30, 2, 2);
+			s20.addSuccesseur(s30, -2, -2);
+			s20.addSuccesseur(s40, 2, 2);
+			s20.addSuccesseur(s60, 2, 2);
+			s30.addSuccesseur(s40, 5, 5);
+			s30.addSuccesseur(s50, 2, 2);
+			s40.addSuccesseur(s50, -1, -1);
+			s40.addSuccesseur(s60, 3, 3);
+				//s40.addSuccesseur(s30, 5, 5);
+			s50.addSuccesseur(s60, 2, 2);
+			s50.addSuccesseur(s70, 4, 4);
+			s60.addSuccesseur(s70, 3, 3);
+			/*Définition du graphe*/
+			Graphe g4 = new Graphe(true);
+			g4.addSommet(s10);
+			g4.addSommet(s20);
+			g4.addSommet(s30);
+			g4.addSommet(s40);
+			g4.addSommet(s50);
+			g4.addSommet(s60);
+			g4.addSommet(s70);
+			
 //TESTS		
 	/*Test 1*/
-			System.out.println("_____________________________________ DEBUT TEST 1 _____________________________________");
-				System.out.println("\n"+"Exemple tiré du cours d'objet");
+			/*System.out.println("_____________________________________ DEBUT TEST 1 _____________________________________");
+				System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo homonyme");
 				FormatGraphe f1 = new FormatGraphe(g1);
 				f1.ecrireGraphe("TEST_1.dot");
 				//bash : "dot -Tjpg -o TEST_1.jpg TEST_1.dot "
@@ -137,7 +169,7 @@ public class Test {
 				a1.algo(s5); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
 			System.out.println("\n"+"_____________________________________ FIN TEST 1 _____________________________________");
 	/*Test 2*/
-			System.out.println("\n"+"_____________________________________ DEBUT TEST 2 _____________________________________");
+			/*System.out.println("\n"+"_____________________________________ DEBUT TEST 2 _____________________________________");
 				System.out.println("\n"+"Exemple tiré de : https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra");
 				FormatGraphe f2 = new FormatGraphe(g2);
 				f2.ecrireGraphe("TEST_2.dot");
@@ -145,8 +177,9 @@ public class Test {
 				MooreDijkstra a2 = new MooreDijkstra(g2,sA); // paramètres : graphe étudié & sommet-source
 				a2.algo(sJ); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
 			System.out.println("\n"+"_____________________________________ FIN TEST 2 _____________________________________");
+
 	/*Test 3*/
-			System.out.println("\n"+"_____________________________________ DEBUT TEST 3 _____________________________________");
+			/*System.out.println("\n"+"_____________________________________ DEBUT TEST 3 _____________________________________");
 				System.out.println("\n"+"Exemple tiré de : http://icosaweb.ac-reunion.fr/Algorithmes/Graphes/Docs/AlgorithmeDijkstra.pdf");
 				FormatGraphe f3 = new FormatGraphe(g3);
 				f3.ecrireGraphe("TEST_3.dot");
@@ -154,6 +187,17 @@ public class Test {
 				MooreDijkstra a3 = new MooreDijkstra(g3,si); // paramètres : graphe étudié & sommet-source
 				a3.algo(sf); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
 			System.out.println("\n"+"_____________________________________ FIN TEST 3 _____________________________________");
+			
+	/*Test 4*/
+			System.out.println("\n"+"_____________________________________ DEBUT TEST 4 _____________________________________");
+			System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo homonyme");
+			FormatGraphe f4 = new FormatGraphe(g4);
+			f4.ecrireGraphe("TEST_4.dot");
+			//bash : "dot -Tjpg -o TEST_4.jpg TEST_4.dot "
+			FordBellman fb1 = new FordBellman(g4,s10); // paramètres : graphe étudié & sommet-source
+			fb1.algo(s60); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+			System.out.println("\n"+"_____________________________________ FIN TEST 3 _____________________________________");
+				
 	}	
 }
 		
