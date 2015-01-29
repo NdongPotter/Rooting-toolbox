@@ -127,36 +127,82 @@ public class Test {
 			g3.addSommet(sf);
 	/*Graphe 4*/
 			/*Instanciation des sommets*/
-			Sommet s10 = new Sommet("s10");
-			Sommet s20 = new Sommet("s20");		
-			Sommet s30 = new Sommet("s30");
-			Sommet s40 = new Sommet("s40");
-			Sommet s50 = new Sommet("s50");
-			Sommet s60 = new Sommet("s60");
-			Sommet s70 = new Sommet("s70");
+				//Sommet s10 = new Sommet("s10");
+			Sommet s11 = new Sommet("s11");
+			Sommet s12 = new Sommet("s12");		
+			Sommet s13 = new Sommet("s13");
+			Sommet s14 = new Sommet("s14");
+			Sommet s15 = new Sommet("s15");
+			Sommet s16 = new Sommet("s16");
+			Sommet s17 = new Sommet("s17");
 			/*Définition des successeurs et capacités*/
-			s10.addSuccesseur(s20, 3, 3);
-			s10.addSuccesseur(s30, 2, 2);
-			s20.addSuccesseur(s30, -2, -2);
-			s20.addSuccesseur(s40, 2, 2);
-			s20.addSuccesseur(s60, 2, 2);
-			s30.addSuccesseur(s40, 5, 5);
-			s30.addSuccesseur(s50, 2, 2);
-			s40.addSuccesseur(s50, -1, -1);
-			s40.addSuccesseur(s60, 3, 3);
-				//s40.addSuccesseur(s30, 5, 5);
-			s50.addSuccesseur(s60, 2, 2);
-			s50.addSuccesseur(s70, 4, 4);
-			s60.addSuccesseur(s70, 3, 3);
+				//s10.addSuccesseur(s12, 3, 3);
+			s11.addSuccesseur(s12, 3, 3);
+			s11.addSuccesseur(s13, 2, 2);
+			s12.addSuccesseur(s13, -2, -2);
+			s12.addSuccesseur(s14, 2, 2);
+			s12.addSuccesseur(s16, 2, 2);
+			s13.addSuccesseur(s14, 5, 5);
+			s13.addSuccesseur(s15, 2, 2);
+			s14.addSuccesseur(s15, -1, -1);
+			s14.addSuccesseur(s16, 3, 3);
+				//s14.addSuccesseur(s13, 5, 5);
+			s15.addSuccesseur(s16, 2, 2);
+			s15.addSuccesseur(s17, 4, 4);
+			s16.addSuccesseur(s17, 3, 3);
 			/*Définition du graphe*/
 			Graphe g4 = new Graphe(true);
-			g4.addSommet(s10);
-			g4.addSommet(s20);
-			g4.addSommet(s30);
-			g4.addSommet(s40);
-			g4.addSommet(s50);
-			g4.addSommet(s60);
-			g4.addSommet(s70);
+				//g4.addSommet(s10);
+			g4.addSommet(s11);
+			g4.addSommet(s12);
+			g4.addSommet(s13);
+			g4.addSommet(s14);
+			g4.addSommet(s15);
+			g4.addSommet(s16);
+			g4.addSommet(s17);
+	/*Graphe 5*/
+			/*Instanciation des sommets*/
+			Sommet s20 = new Sommet("s20");
+			Sommet s21 = new Sommet("s21");		
+			Sommet s22 = new Sommet("s22");
+			Sommet s23 = new Sommet("s23");
+			Sommet s24 = new Sommet("s24");
+			Sommet s25 = new Sommet("s25");
+			Sommet s26 = new Sommet("s26");
+			Sommet s27 = new Sommet("s27");
+			Sommet s28 = new Sommet("s28");
+			Sommet s29 = new Sommet("s29");
+
+			/*Définition des successeurs et capacités*/
+			s20.addSuccesseur(s21, 6, 6);
+			s20.addSuccesseur(s22, 3, 3);
+			s20.addSuccesseur(s23, 4, 4);
+			s21.addSuccesseur(s24, 5, 5);
+			s21.addSuccesseur(s25, -4, -4);
+			s22.addSuccesseur(s21, 2, 2);
+			s22.addSuccesseur(s23, 1, 1);
+			s23.addSuccesseur(s26, 2, 2);
+			s23.addSuccesseur(s28, -2, -2);
+			s24.addSuccesseur(s25, -7, -7);
+			s24.addSuccesseur(s27, -4, -4);
+			s25.addSuccesseur(s26, 2, 2);
+			s25.addSuccesseur(s27, 2, 2);
+			s26.addSuccesseur(s28, -1, -1);
+			s26.addSuccesseur(s29, -3, -3);
+			s27.addSuccesseur(s29, 1, 1);
+			s28.addSuccesseur(s29, -1, -1);
+			/*Définition du graphe*/
+			Graphe g5 = new Graphe(true);
+			g5.addSommet(s20);
+			g5.addSommet(s21);
+			g5.addSommet(s22);
+			g5.addSommet(s23);
+			g5.addSommet(s24);
+			g5.addSommet(s25);
+			g5.addSommet(s28);	
+			g5.addSommet(s26);	
+			g5.addSommet(s27);	
+			g5.addSommet(s29);	
 			
 //TESTS		
 	/*Test 1*/
@@ -189,15 +235,23 @@ public class Test {
 			System.out.println("\n"+"_____________________________________ FIN TEST 3 _____________________________________");
 			
 	/*Test 4*/
-			System.out.println("\n"+"_____________________________________ DEBUT TEST 4 _____________________________________");
+			/*System.out.println("\n"+"_____________________________________ DEBUT TEST 4 _____________________________________");
 			System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo homonyme");
 			FormatGraphe f4 = new FormatGraphe(g4);
 			f4.ecrireGraphe("TEST_4.dot");
 			//bash : "dot -Tjpg -o TEST_4.jpg TEST_4.dot "
-			FordBellman fb1 = new FordBellman(g4,s10); // paramètres : graphe étudié & sommet-source
-			fb1.algo(s60); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
-			System.out.println("\n"+"_____________________________________ FIN TEST 3 _____________________________________");
-				
+			FordBellman fb1 = new FordBellman(g4,s11); // paramètres : graphe étudié & sommet-source
+			fb1.algo(s16); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+			System.out.println("\n"+"_____________________________________ FIN TEST 4 _____________________________________");
+	/*Test 5*/
+			System.out.println("\n"+"_____________________________________ DEBUT TEST 5 _____________________________________");
+			System.out.println("\n"+"Exemple inventé");
+			FormatGraphe f5 = new FormatGraphe(g5);
+			f5.ecrireGraphe("TEST_5.dot");
+			//bash : "dot -Tjpg -o TEST_5.jpg TEST_5.dot "
+			FordBellman fb2 = new FordBellman(g5,s20); // paramètres : graphe étudié & sommet-source
+			fb2.algo(s29); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+			System.out.println("\n"+"_____________________________________ FIN TEST 5 _____________________________________");
 	}	
 }
 		

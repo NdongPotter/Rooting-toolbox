@@ -1,10 +1,10 @@
-import java.util.ArrayList;
 import java.util.ListIterator;
 
 /*On implémente ici l'algorithme de Moore Dijkstra
  *Cet algorithme est basé sur une hypothèse restrictive : la fonction de coût est positive.
  *Etant donné un sommet-source s, il permet de trouver un plus court chemin de s vers tout autre sommet.
  *Par défaut l'algorithme retourne le plus court chemin vers le sommet le plus éloigné du sommet-source.
+ *Pour deux plus courts-chemins de même longueur, on conservera celui qui a été étudié en dernier.
  */
 
 public class MooreDijkstra extends Algo {
@@ -12,6 +12,7 @@ public class MooreDijkstra extends Algo {
 	//ATTRIBUTS	
 	
 	//CONSTRUCTEUR
+	/*L'initialisation de l'algo est gérée dans le constructeur*/
 		public MooreDijkstra(Graphe g , Sommet s){
 			super(g,s);
 		}
@@ -20,15 +21,15 @@ public class MooreDijkstra extends Algo {
 		void algo(Sommet sortie) {
 			System.out.println("======ALGO MOORE-DIJKSTRA======"+"\n");
 			//INITIALISATION
-				System.out.print("\n"+"*INITIALISATION"+"\n");
-					/*Fin initialisation : s meilleur prédecesseur pour chacun de ses successeurs directs. Coût = distance au sommet-source.*/	
-						ListIterator<Sommet> iterS = this.s.getSuccesseurs().listIterator();
-						while(iterS.hasNext()){
-							int i1 = iterS.nextIndex();
-							int i2 = this.graphe.indexOf(iterS.next());
-							this.pred.set(i2,s);
-							this.pi.set(i2,this.s.getCapacites().get(i1));
-						}
+				System.out.print("\n"+"*FIN INITIALISATION"+"\n");
+				/*Fin initialisation : s meilleur prédecesseur pour chacun de ses successeurs directs. Coût = distance au sommet-source.*/	
+				ListIterator<Sommet> iterS = this.s.getSuccesseurs().listIterator();
+				while(iterS.hasNext()){							
+					int i1 = iterS.nextIndex();
+					int i2 = this.graphe.indexOf(iterS.next());
+					this.pred.set(i2,s);
+					this.pi.set(i2,this.s.getCapacites().get(i1));
+				}
 				afficherAttributs();
 			//ITERATIONS
 				System.out.print("\n"+"*ITERATIONS"+"\n");

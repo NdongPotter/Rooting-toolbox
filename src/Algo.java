@@ -20,7 +20,7 @@ public abstract class Algo {
 	
 	//CONSTRUCTEUR		
 		public Algo(Graphe g , Sommet s){
-			System.out.println("\n"+"*CONSTRUCTION CLASSE MERE");
+			System.out.println("\n"+"*CONSTRUCTION CLASSE MERE et INITIALISATION ALGORITHMES");
 			this.graphe=g;
 			this.s=s;	
 			this.t = new ArrayList<Sommet>();
@@ -54,66 +54,69 @@ public abstract class Algo {
 	
 	//GETTER
 		/*Recup sommet dans pred et t qui minimise pi*/
-		public Sommet getMiniPi(){
-			Sommet sMin = null; //initialisation de la variable qui contiendra le sommet de T qui minimise Pi
-			int cMin = Integer.MAX_VALUE ; //initialisation de la variable qui contiendra le cout depuis le sommet-source dans Pi
-			ListIterator<Sommet> iter = this.t.listIterator();//itérateur sur la liste T des sommets à traiter
-			while (iter.hasNext()){ //on parcourt tous les sommets de T
-				Sommet sommetItere = iter.next();//sommet en cours d'étude
-				int i = this.graphe.getSommets().indexOf(sommetItere);//index du sommet étudié dans le graphe
-				if(this.pi.get(i)<=cMin){
-					sMin = sommetItere;//Si le cout depuis le sommet-source dans Pi est minimal, on stocke le sommet T qui minimise Pi
-					cMin = this.pi.get(i);//et son cout
+		/*utilisé dans Moore et pas FB*/
+			public Sommet getMiniPi(){
+				Sommet sMin = null; //initialisation de la variable qui contiendra le sommet de T qui minimise Pi
+				int cMin = Integer.MAX_VALUE ; //initialisation de la variable qui contiendra le cout depuis le sommet-source dans Pi
+				ListIterator<Sommet> iter = this.t.listIterator();//itérateur sur la liste T des sommets à traiter
+				while (iter.hasNext()){ //on parcourt tous les sommets de T
+					Sommet sommetItere = iter.next();//sommet en cours d'étude
+					int i = this.graphe.getSommets().indexOf(sommetItere);//index du sommet étudié dans le graphe
+					if(this.pi.get(i)<=cMin){
+						sMin = sommetItere;//Si le cout depuis le sommet-source dans Pi est minimal, on stocke le sommet T qui minimise Pi
+						cMin = this.pi.get(i);//et son cout
+					}
 				}
+				return sMin;
 			}
-			return sMin;
-		}
 		/*Recup sommet dans pred qui maximise pi*/
-		public Sommet getMaxiPi(){
-			/*On cherche dans le sommet qui maximise Pi*/
-			Sommet sMax = null ; //variable qui contient le sommet le plus éloigné depuis la source - on affiche le chemin associé par défaut
-			int cMax = 0 ; //cout associé à sMax
-			ListIterator<Integer> iterPi = this.pi.listIterator();
-			while (iterPi.hasNext()){ //on parcourt la liste des couts afin d'identifier sMax et cMax
-				int index = iterPi.nextIndex();
-				int varC = iterPi.next();
-				Sommet varS = this.graphe.getSommet(index);
-				if (varC > cMax && varC < Integer.MAX_VALUE){
-					cMax = varC ;
-					sMax = varS ;
+		/*utilisé dans Moore et FB*/
+			public Sommet getMaxiPi(){
+				/*On cherche dans le sommet qui maximise Pi*/
+				Sommet sMax = null ; //variable qui contient le sommet le plus éloigné depuis la source - on affiche le chemin associé par défaut
+				int cMax = 0 ; //cout associé à sMax
+				ListIterator<Integer> iterPi = this.pi.listIterator();
+				while (iterPi.hasNext()){ //on parcourt la liste des couts afin d'identifier sMax et cMax
+					int index = iterPi.nextIndex();
+					int varC = iterPi.next();
+					Sommet varS = this.graphe.getSommet(index);
+					if (varC > cMax && varC < Integer.MAX_VALUE){
+						cMax = varC ;
+						sMax = varS ;
+					}
 				}
+				return sMax;
 			}
-			return sMax;
-		}
-		
+			
 	//SETTER
 		/*Si le chemin de miniPi à ses successeurs est plus court, mise-à-jour de pred et pi*/
-		public void majPred(Sommet miniPi, int miniPiCout){
-		System.out.println("Successeur(s) : ");
-		for (int i=0 ; i < miniPi.getSuccesseurs().size() ; i++){
-			Sommet varS = miniPi.getSucc(i);
-			System.out.print("- "+varS.getNom()+" est un successeur de "+miniPi.getNom()+" la capacité associée à l'arc est "+ miniPi.getCapacites(i));
-			ListIterator<Sommet> iter2 = this.t.listIterator();//on vérifie uniquement pour les sommets qui sont encore à traiter
-			while(iter2.hasNext()){
-				Sommet varT = iter2.next();
-				if(varS.equals(varT)){
-					System.out.println(". Il est dans t, on calcul le nouveau coût.");
-					int nouvelleDistance = miniPiCout+miniPi.getCapacites(i);//on calcul pour chaque successeur sa distance au sommet-source en passant par rechercheSommet
-					if (nouvelleDistance<this.pi.get(this.graphe.indexOf(varS))){//si cette nouvelle distance est plus faible, on met à jour la liste des meilleurs prédecesseurs et la liste des couts
-						System.out.print("Meilleur prédecesseur actuel de "+varS.getNom()
-								+" : "+this.pred.get(this.graphe.indexOf(varS)).getNom()
-								+". Coût associé : "+this.pi.get(this.graphe.indexOf(varS)));
-						this.pred.set(this.graphe.indexOf(varS), miniPi);
-						this.pi.set(this.graphe.indexOf(varS),nouvelleDistance);
-						System.out.print(". En passant par "+miniPi.getNom()
-								+" le cout devient "+nouvelleDistance+"\n");
-					}		
-					
+		/*utilisé dans Moore et pas FB*/
+			public void majPred(Sommet miniPi, int miniPiCout){
+			System.out.println("Successeur(s) : ");
+			for (int i=0 ; i < miniPi.getSuccesseurs().size() ; i++){
+				Sommet varS = miniPi.getSucc(i);
+				System.out.print("- "+varS.getNom()+" est un successeur de "+miniPi.getNom()+" la capacité associée à l'arc est "+ miniPi.getCapacites(i));
+				ListIterator<Sommet> iter2 = this.t.listIterator();//on vérifie uniquement pour les sommets qui sont encore à traiter
+				while(iter2.hasNext()){
+					Sommet varT = iter2.next();
+					if(varS.equals(varT)){
+						System.out.println(". Il est dans t, on calcul le nouveau coût.");
+						int nouvelleDistance = miniPiCout+miniPi.getCapacites(i);//on calcul pour chaque successeur sa distance au sommet-source en passant par rechercheSommet
+						if (nouvelleDistance<this.pi.get(this.graphe.indexOf(varS))){//si cette nouvelle distance est plus faible, on met à jour la liste des meilleurs prédecesseurs et la liste des couts
+							System.out.print("Meilleur prédecesseur actuel de "+varS.getNom()
+									+" : "+this.pred.get(this.graphe.indexOf(varS)).getNom()
+									+". Coût associé : "+this.pi.get(this.graphe.indexOf(varS)));
+							this.pred.set(this.graphe.indexOf(varS), miniPi);
+							this.pi.set(this.graphe.indexOf(varS),nouvelleDistance);
+							System.out.print(". En passant par "+miniPi.getNom()
+									+" le cout devient "+nouvelleDistance+"\n");
+						}		
+						
+					}
 				}
+			}	
+				
 			}
-		}	
-			
-		}
 		
 	//AFFICHAGE
 		/*affiche paramètres algo*/
@@ -154,12 +157,13 @@ public abstract class Algo {
 				return this.pi.toString()+"\n";
 			}
 		/*affiche infos relatives au sommet qui minimise Pi*/
+			/*utilisé dans Moore et pas FB*/
 			public void afficherMiniPi(Sommet s, int i, int c){
 			System.out.println("Sommet qui minimise Pi : "+s.getNom()
 					+". Index dans T : "+i
 					+". Distance depuis la source : "+c);
 			}
-		/*affiche le + court-chemin de la source vers un sommet "sortie" passé en paramère*/
+		/*affiche le + court-chemin de la source vers un sommet "sortie" passé en paramètre*/
 			public void afficherResultat(Sommet sortie){
 				int index = this.graphe.indexOf(sortie); //on récupère l'index du sommet de sortie
 				if (this.pi.get(index)!=Integer.MAX_VALUE){
