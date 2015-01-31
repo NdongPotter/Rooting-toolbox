@@ -202,11 +202,42 @@ public class Test {
 			g5.addSommet(s28);	
 			g5.addSommet(s26);	
 			g5.addSommet(s27);	
-			g5.addSommet(s29);	
+			g5.addSommet(s29);
 			
-//TESTS		
+	/*Graphe 5*/
+			/*Instanciation des sommets*/
+			Sommet s31 = new Sommet("s31");		
+			Sommet s32 = new Sommet("s32");
+			Sommet s33 = new Sommet("s33");
+			Sommet s34 = new Sommet("s34");
+			Sommet s35 = new Sommet("s35");
+			Sommet s36 = new Sommet("s36");
+
+			/*Définition des successeurs et capacités*/
+			//s31.addSuccesseur(s32, 3, 3);
+			s31.addSuccesseur(s33, 6, 6);
+			s31.addSuccesseur(s35, 3, 3);
+			s32.addSuccesseur(s33, -3, -3);
+			s32.addSuccesseur(s34, 6, 6);
+			s33.addSuccesseur(s34, 1, 1);
+			s34.addSuccesseur(s35, 6, 6);
+			s34.addSuccesseur(s36, 1, 1);
+			s35.addSuccesseur(s33, -2, -2);
+			s35.addSuccesseur(s36, 5, 5);
+			
+			/*Définition du graphe*/
+			Graphe g6 = new Graphe(true);
+			g6.addSommet(s31);
+			g6.addSommet(s32);
+			g6.addSommet(s33);
+			g6.addSommet(s34);
+			g6.addSommet(s35);
+			g6.addSommet(s36);	
+			
+//TESTS
+	//TestMooreDijksrta
 	/*Test 1*/
-			/*System.out.println("_____________________________________ DEBUT TEST 1 _____________________________________");
+			System.out.println("_____________________________________ DEBUT TEST 1 _____________________________________");
 				System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo homonyme");
 				FormatGraphe f1 = new FormatGraphe(g1);
 				f1.ecrireGraphe("TEST_1.dot");
@@ -233,7 +264,8 @@ public class Test {
 				MooreDijkstra a3 = new MooreDijkstra(g3,si); // paramètres : graphe étudié & sommet-source
 				a3.algo(sf); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
 			System.out.println("\n"+"_____________________________________ FIN TEST 3 _____________________________________");
-			
+	
+	//TestFordBellman
 	/*Test 4*/
 			/*System.out.println("\n"+"_____________________________________ DEBUT TEST 4 _____________________________________");
 			System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo homonyme");
@@ -252,6 +284,24 @@ public class Test {
 			FordBellman fb2 = new FordBellman(g5,s20); // paramètres : graphe étudié & sommet-source
 			fb2.algo(s29); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
 			System.out.println("\n"+"_____________________________________ FIN TEST 5 _____________________________________");
+
+	//TestBellman
+	/*Test 6*/
+			System.out.println("\n"+"_____________________________________ DEBUT TEST 6 _____________________________________");
+			System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo homonyme");
+			FormatGraphe f6 = new FormatGraphe(g6);
+			f6.ecrireGraphe("TEST_6.dot");
+			//bash : "dot -Tjpg -o TEST_6.jpg TEST_6.dot "
+			Bellman b1 = new Bellman(g6,s31); // paramètres : graphe étudié & sommet-source
+			b1.algo(s36); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+			System.out.println("\n"+"_____________________________________ FIN TEST 6 _____________________________________");			
+	/*Test 6*/
+			/*System.out.println("\n"+"_____________________________________ DEBUT TEST 7 _____________________________________");
+			System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo de FordBellman");
+			Bellman b2 = new Bellman(g4,s11); // paramètres : graphe étudié & sommet-source
+			b2.algo(s15); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+			System.out.println("\n"+"_____________________________________ FIN TEST 6 _____________________________________");	
+			*/
 	}	
 }
 		
