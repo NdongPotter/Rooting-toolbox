@@ -1,7 +1,9 @@
-public class Test {
+public class Test{
 
 
 	public static void main(String[] args) {
+		
+
 		
 //CONSTRUCTION GRAPHES
 	/*Graphe 1*/
@@ -31,6 +33,12 @@ public class Test {
 			g1.addSommet(s4);
 			g1.addSommet(s5);
 			g1.addSommet(s6);
+			
+			
+//TEST affichage
+			
+			//System.out.print(s1.afficherSuccesseurs());
+			
 	/*Graphe 2*/
 			/*Instanciation des sommets*/
 			Sommet sA = new Sommet("sA");
@@ -243,65 +251,85 @@ public class Test {
 				f1.ecrireGraphe("TEST_1.dot");
 				//bash : "dot -Tjpg -o TEST_1.jpg TEST_1.dot "
 				MooreDijkstra a1 = new MooreDijkstra(g1,s1); // paramètres : graphe étudié & sommet-source
-				a1.algo(s5); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				Chemins c1 = a1.algo(); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				c1.afficherChemins();
+				c1.afficherResultat(s6);
+				c1.afficherResultat(c1.getMaxiPi());
 			System.out.println("\n"+"_____________________________________ FIN TEST 1 _____________________________________");
 	/*Test 2*/
-			/*System.out.println("\n"+"_____________________________________ DEBUT TEST 2 _____________________________________");
+			System.out.println("\n"+"_____________________________________ DEBUT TEST 2 _____________________________________");
 				System.out.println("\n"+"Exemple tiré de : https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra");
 				FormatGraphe f2 = new FormatGraphe(g2);
 				f2.ecrireGraphe("TEST_2.dot");
 				//bash : "dot -Tjpg -o TEST_2.jpg TEST_2.dot "
 				MooreDijkstra a2 = new MooreDijkstra(g2,sA); // paramètres : graphe étudié & sommet-source
-				a2.algo(sJ); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				Chemins c2 = a2.algo(); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				c2.afficherChemins();
+				c2.afficherResultat(sJ);
+				c2.afficherResultat(c2.getMaxiPi());
 			System.out.println("\n"+"_____________________________________ FIN TEST 2 _____________________________________");
 
 	/*Test 3*/
-			/*System.out.println("\n"+"_____________________________________ DEBUT TEST 3 _____________________________________");
+			System.out.println("\n"+"_____________________________________ DEBUT TEST 3 _____________________________________");
 				System.out.println("\n"+"Exemple tiré de : http://icosaweb.ac-reunion.fr/Algorithmes/Graphes/Docs/AlgorithmeDijkstra.pdf");
 				FormatGraphe f3 = new FormatGraphe(g3);
 				f3.ecrireGraphe("TEST_3.dot");
 				//bash : "dot -Tjpg -o TEST_3.jpg TEST_3.dot "
 				MooreDijkstra a3 = new MooreDijkstra(g3,si); // paramètres : graphe étudié & sommet-source
-				a3.algo(sf); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				Chemins c3 = a3.algo(); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				c3.afficherChemins();
+				c3.afficherResultat(sf);
+				c3.afficherResultat(c3.getMaxiPi());
 			System.out.println("\n"+"_____________________________________ FIN TEST 3 _____________________________________");
 	
 	//TestFordBellman
 	/*Test 4*/
-			/*System.out.println("\n"+"_____________________________________ DEBUT TEST 4 _____________________________________");
-			System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo homonyme");
-			FormatGraphe f4 = new FormatGraphe(g4);
-			f4.ecrireGraphe("TEST_4.dot");
-			//bash : "dot -Tjpg -o TEST_4.jpg TEST_4.dot "
-			FordBellman fb1 = new FordBellman(g4,s11); // paramètres : graphe étudié & sommet-source
-			fb1.algo(s16); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+			System.out.println("\n"+"_____________________________________ DEBUT TEST 4 _____________________________________");
+				System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo homonyme");
+				FormatGraphe f4 = new FormatGraphe(g4);
+				f4.ecrireGraphe("TEST_4.dot");
+				//bash : "dot -Tjpg -o TEST_4.jpg TEST_4.dot "
+				FordBellman fb1 = new FordBellman(g4,s11); // paramètres : graphe étudié & sommet-source
+				Chemins c4 = fb1.algo(); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				c4.afficherChemins();
+				c4.afficherResultat(s16);
+				c4.afficherResultat(c4.getMaxiPi());
 			System.out.println("\n"+"_____________________________________ FIN TEST 4 _____________________________________");
 	/*Test 5*/
 			System.out.println("\n"+"_____________________________________ DEBUT TEST 5 _____________________________________");
-			System.out.println("\n"+"Exemple inventé");
-			FormatGraphe f5 = new FormatGraphe(g5);
-			f5.ecrireGraphe("TEST_5.dot");
-			//bash : "dot -Tjpg -o TEST_5.jpg TEST_5.dot "
-			FordBellman fb2 = new FordBellman(g5,s20); // paramètres : graphe étudié & sommet-source
-			fb2.algo(s29); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				System.out.println("\n"+"Exemple inventé");
+				FormatGraphe f5 = new FormatGraphe(g5);
+				f5.ecrireGraphe("TEST_5.dot");
+				//bash : "dot -Tjpg -o TEST_5.jpg TEST_5.dot "
+				FordBellman fb2 = new FordBellman(g5,s20); // paramètres : graphe étudié & sommet-source
+				Chemins c5 = fb2.algo(); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				c5.afficherChemins();
+				c5.afficherResultat(s29);
+				c5.afficherResultat(c5.getMaxiPi());
 			System.out.println("\n"+"_____________________________________ FIN TEST 5 _____________________________________");
 
 	//TestBellman
 	/*Test 6*/
 			System.out.println("\n"+"_____________________________________ DEBUT TEST 6 _____________________________________");
-			System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo homonyme");
-			FormatGraphe f6 = new FormatGraphe(g6);
-			f6.ecrireGraphe("TEST_6.dot");
-			//bash : "dot -Tjpg -o TEST_6.jpg TEST_6.dot "
-			Bellman b1 = new Bellman(g6,s31); // paramètres : graphe étudié & sommet-source
-			b1.algo(s36); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo homonyme");
+				FormatGraphe f6 = new FormatGraphe(g6);
+				f6.ecrireGraphe("TEST_6.dot");
+				//bash : "dot -Tjpg -o TEST_6.jpg TEST_6.dot "
+				Bellman b1 = new Bellman(g6,s31); // paramètres : graphe étudié & sommet-source
+				Chemins c6 = b1.algo(); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				c6.afficherChemins();
+				c6.afficherResultat(s36);
+				c6.afficherResultat(c6.getMaxiPi());
 			System.out.println("\n"+"_____________________________________ FIN TEST 6 _____________________________________");			
-	/*Test 6*/
-			/*System.out.println("\n"+"_____________________________________ DEBUT TEST 7 _____________________________________");
-			System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo de FordBellman");
-			Bellman b2 = new Bellman(g4,s11); // paramètres : graphe étudié & sommet-source
-			b2.algo(s15); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+	/*Test 7*/
+			System.out.println("\n"+"_____________________________________ DEBUT TEST 7 _____________________________________");
+				System.out.println("\n"+"Exemple tiré du cours d'objet sur l'algo de FordBellman");
+				Bellman b2 = new Bellman(g4,s11); // paramètres : graphe étudié & sommet-source
+				Chemins c7 = b2.algo(); // paramètre : sommet de sortie (par défaut l'algo affiche le chemin vers le sommet le plus éloigné de la source)
+				c7.afficherChemins();
+				c7.afficherResultat(s15);
+				c7.afficherResultat(c7.getMaxiPi());
 			System.out.println("\n"+"_____________________________________ FIN TEST 6 _____________________________________");	
-			*/
 	}	
 }
 		

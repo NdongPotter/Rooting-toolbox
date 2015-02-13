@@ -35,7 +35,7 @@ public class FordBellman extends Algo {
 		}
 	
 	//ALGORITHME
-		void algo(Sommet sortie) {
+		Chemins algo() {
 			System.out.println("======ALGO FORD-BELLMAN======"+"\n");
 			//INITIALISATION
 				/*L'initialisation a été finalisée dans le constructeur*/
@@ -126,20 +126,20 @@ public class FordBellman extends Algo {
 								erreur = true;
 							}
 				}
-				
+				Chemins c = new Chemins(this.graphe, this.s);
 				if (!erreur){
 				//FIN
 				System.out.print("\n"+"*FIN"+"\n");
 				afficherParametres();
 				afficherAttributs();
-			//RESULTATS
-				System.out.println("\n"+"\n"+"*RESULTATS");
-				afficherResultat(this.getMaxiPi());
-				afficherResultat(sortie);
+				//RESULTATS
+				/*On récupère le résultat dans un objet Chemins*/
+					c.setChemin(this.pred, this.pi);
 				}
 				else{
 					System.out.println("STOP : l'algorithme a rencontré une erreur");
 				}
-		
+				return c;
+
 	}
 }

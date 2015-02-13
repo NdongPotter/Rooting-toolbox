@@ -65,33 +65,9 @@ public abstract class Algo {
 				this.pi.set(i2,this.s.getCapacites().get(i1));
 			}
 		}
-	
-	//GETTER		
-		/*Recup sommet dans pred qui maximise pi
-		 *Est utilisé pour trouver le sommet le plus éloigné de la source */
-			public Sommet getMaxiPi(){
-				/*On cherche dans le sommet qui maximise Pi*/
-				Sommet sMax = null ; //variable qui contient le sommet le plus éloigné depuis la source - on affiche le chemin associé par défaut
-				int cMax = 0 ; //cout associé à sMax
-				ListIterator<Integer> iterPi = this.pi.listIterator();
-				while (iterPi.hasNext()){ //on parcourt la liste des couts afin d'identifier sMax et cMax
-					int index = iterPi.nextIndex();
-					int varC = iterPi.next();
-					Sommet varS = this.graphe.getSommet(index);
-					if (varC > cMax && varC < Integer.MAX_VALUE){
-						cMax = varC ;
-						sMax = varS ;
-					}
-				}
-				return sMax;
-			}
 			
-	//SETTER
-		/*Si le chemin de miniPi à ses successeurs est plus court, mise-à-jour de pred et pi*/
-		/*utilisé dans Moore et pas FB*/
-
-		
 	//AFFICHAGE
+			
 		/*affiche paramètres algo*/
 			public void afficherParametres(){
 				System.out.println("-Paramètres"
@@ -130,42 +106,6 @@ public abstract class Algo {
 				return this.pi.toString()+"\n";
 			}
 			
-		/*affiche le + court-chemin de la source vers un sommet "sortie" passé en paramètre*/
-			public void afficherResultat(Sommet sortie){
-				int index = this.graphe.indexOf(sortie); //on récupère l'index du sommet de sortie
-				if (this.pi.get(index)!=Integer.MAX_VALUE){
-					int cout = this.pi.get(index); //On récupère le coût associé à ce sommet de sortie
-					/*la liste des sommets constituants le plus court chemin est complété en remontant un par un les meilleurs prédécesseurs depuis sortie
-					 * La boucle s'arrête lorsqu'on retrouve le sommet-source.
-					 */
-						ArrayList<Sommet> resultat = new ArrayList<Sommet>() ;
-						Sommet varS = sortie ;
-						while (! varS.equals(this.s)){
-							resultat.add(0, varS);
-							int indexdansgraphe = this.graphe.indexOf(varS);
-							Sommet meilleurpredecesseurVarS = this.pred.get(indexdansgraphe);
-							varS = meilleurpredecesseurVarS;
-						}
-					/*ajout du sommet-source en tête de la liste resultat*/
-						resultat.add(0, this.s);
-					/*affiche resultat*/
-						String liste = new String();
-						ListIterator<Sommet> iter2 = resultat.listIterator();
-						while(iter2.hasNext()){
-							String var = iter2.next().getNom();
-							if(iter2.hasNext()){
-								var+=" -> ";
-							}
-							liste+=var;
-						}
-						System.out.println("Plus court-chemin de "+s.getNom()
-							+" à "+ sortie.getNom()
-							+" : "+liste
-							+". Coût : "+cout);
-						}
-				else {System.out.print("Le sommet de sortie "+sortie.getNom()+" n'est pas atteignable depuis la source "+s.getNom());}
-			}
-
 		/*affiche les sommets innateignables
 		 * cette méthode est utilisée dans MD et B mais pas FB (cf commentaire d'intro de la classe)*/
 			public void afficherSommetsInnateignables(){
@@ -179,5 +119,6 @@ public abstract class Algo {
 						System.out.print(varS.getNom()+";");
 					}
 				}
+				System.out.println();
 			}
 }

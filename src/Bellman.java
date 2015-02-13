@@ -21,7 +21,7 @@ public class Bellman extends Algo {
 			}
 
 	//ALGORITHME
-		void algo(Sommet sortie) {
+		Chemins algo() {
 			System.out.println("======ALGO BELLMAN======"
 					+"\n"+"\n"+"*FIN INITIALISATION"+"\n");
 			finInit();
@@ -122,13 +122,14 @@ public class Bellman extends Algo {
 			afficherAttributs();
 			afficherSommetsInnateignables();				
 		//RESULTATS
-			System.out.println("\n"+"\n"+"*RESULTATS");
-			afficherResultat(this.getMaxiPi());
-			afficherResultat(sortie);				
+			/*On récupère le résultat dans un objet Chemins*/
+			Chemins c = new Chemins(this.graphe, this.s);
+			c.setChemin(this.pred, this.pi);
+			return c;
 
 	}
 				
-	//AFFICHAGE > à interfacer
+	//AFFICHAGE
 		/*permet d'afficher les valeurs des attributs pred et pi de l'itération précédente*/
 		public void afficherPredPi1(ArrayList <Sommet> pred1, ArrayList <Integer> pi1){
 			System.out.println("-Attributs Pred et Pi de l'itération précédente :"

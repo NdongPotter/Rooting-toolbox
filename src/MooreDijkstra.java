@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.ListIterator;
 
 /*On implémente ici l'algorithme de Moore Dijkstra
@@ -19,7 +18,7 @@ public class MooreDijkstra extends Algo {
 			}
 	
 	//ALGORITHME
-		void algo(Sommet sortie) {
+		Chemins algo() {
 			System.out.println("======ALGO MOORE-DIJKSTRA======"
 					+"\n"+"\n"+"*FIN INITIALISATION"+"\n");
 			finInit();
@@ -82,13 +81,12 @@ public class MooreDijkstra extends Algo {
 			//FIN
 				System.out.print("\n"+"*FIN"+"\n");
 				System.out.println(this.t.get(0).getNom()+" est seul dans t. C'est soit le plus éloigné du sommet-source, soit un sommet innateignable.");
-				afficherParametres();
-				afficherAttributs();
 				afficherSommetsInnateignables();				
 			//RESULTATS
-				System.out.println("\n"+"\n"+"*RESULTATS");
-				afficherResultat(this.getMaxiPi());
-				afficherResultat(sortie);
+				/*On récupère le résultat dans un objet Chemins*/
+					Chemins c = new Chemins(this.graphe, this.s);
+					c.setChemin(this.pred, this.pi);
+					return c;
 		
 		}	
 		
